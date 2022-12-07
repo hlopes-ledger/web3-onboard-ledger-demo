@@ -167,28 +167,29 @@ export default function Home() {
             Connect with Web3-Onboard
           </Text>
         </HStack>
+
         <HStack>
-          {!account ? (
-            <Button onClick={connectWallet} disabled={isConnecting}>Connect Wallet</Button>
+          <Text>{`Status: `}</Text>
+          {account ? (
+            <Text color="green">Connected</Text>
           ) : (
-            <Button onClick={disconnect}>Disconnect</Button>
+            <Text color="#cd5700">Not connected</Text>
           )}
         </HStack>
-        <VStack justifyContent="center" alignItems="center" padding="10px 0">
-          <HStack>
-            <Text>{`Connection Status: `}</Text>
-            {account ? (
-              <Text color="green">Connected</Text>
-            ) : (
-              <Text color="#cd5700">Not connected</Text>
-            )}
-          </HStack>
 
-          <Tooltip label={account} placement="right">
-            <Text>{`Account: ${shortenAddress(account)}`}</Text>
-          </Tooltip>
-          <Text>{`Network ID: ${chainId ? chainId : "No Network"}`}</Text>
-        </VStack>
+        {!account ? (
+          <Button onClick={connectWallet} disabled={isConnecting}>Connect Wallet</Button>
+        ) : (
+          <VStack justifyContent="center" alignItems="center" padding="10px 0">
+            <Tooltip label={account} placement="right">
+              <Text>{`Account: ${shortenAddress(account)}`}</Text>
+            </Tooltip>
+            <Text>{`Network ID: ${chainId ? chainId : "No network"}`}</Text>
+
+            <Button onClick={disconnect}>Disconnect</Button>
+            </VStack>
+        )}
+
       </VStack>
     </>
   );
